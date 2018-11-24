@@ -1,1 +1,4 @@
-{{ "Me gusta %esto%"|replace({'%esto%': "la fabada"}) }}
+{% extends 'base.html.twig' %}
+{% block content %}
+    {{ "Me gusta %esto%"|replace({'%esto%': "la fabada"}) }}
+{% endblock %}
