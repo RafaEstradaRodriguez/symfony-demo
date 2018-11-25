@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}UpFlix cutre: {{ pelicula.titulo }}{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>{{ pelicula.titulo }}</h1>
+        <div class="media">
+            <img class="mr-3" width="150px" src="{{ pelicula.imageUrl }}">
+            <div class="media-body">
+                <h5 class="mt-0">Sinopsis</h5>
+                {{ pelicula.descripcion }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

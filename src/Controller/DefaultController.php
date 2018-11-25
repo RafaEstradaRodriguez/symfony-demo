@@ -2,27 +2,36 @@
 
 namespace App\Controller;
 
+use App\Entity\Pelicula;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends AbstractController
 {
     /**
-     * @Route("/edit/{id}", name="editar_usuario")
+     * @Route("/pelicula/{slug}")
      */
-    public function edit($id)
+    public function edit($slug)
     {
-        return $this->render('other.html.twig', ['nombre' => 'John']);
+        foreach (Pelicula::getFakePeliculas() as $peli) {
+            if ($peli->slug == $slug) {
+                $pelicula = $peli;
+            }
+        }
+
+        return $this->render('details.html.twig', ['pelicula' => $pelicula]);
     }
 
     /**
-     * @Route("/", name="homepage")
+     * @Route("/")
      */
     public function index()
     {
-        return new JsonResponse();
-        return $this->json(['result' => 'ok']);
+        return $this->render(
+            'list.html.twig',
+            [
+                'peliculas' => Pelicula::getFakePeliculas()
+            ]
+        );
     }
 }
