@@ -1,4 +1,10 @@
 {% extends 'base.html.twig' %}
 {% block content %}
-    {{ "Me gusta %esto%"|replace({'%esto%': "la fabada"}) }}
+    <a href="{{ path('homepage') }}">Hole</a>
+    <a href="{{ path('editar_usuario',{id:'kiko'}) }}">editar</a>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/admin.js') }}"></script>
 {% endblock %}

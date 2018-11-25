@@ -2,11 +2,15 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <link rel="stylesheet" href="{{ asset('styles.css') }}"/>
     </head>
     <body>
         {% block header %}PADRE{% endblock %}
         {% block side %}{% endblock %}
         {% block content %}PADRE{% endblock %}
         {% block footer %}PADRE{% endblock %}
+        {% block javascripts %}
+            <script src="jquery.js"></script>
+        {% endblock %}
     </body>
 </html>
