@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Pelicula;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -37,5 +38,12 @@ class DefaultController extends AbstractController
                 'peliculas' => Pelicula::getFakePeliculas()
             ]
         );
+    }
+
+    /**
+     * @Route("/star/{slug}", name="star_pelicula")
+     */
+    public function starMovie($slug) {
+        return new JsonResponse(['stars' => random_int(0,100)]);
     }
 }

@@ -1,5 +1,15 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <style>
+        .fa-star {
+            color: #ffd931;
+        }
+    </style>
+
+{% endblock %}
 {% block title %}UpFlix cutre{% endblock %}
 
 {% block content %}
@@ -8,6 +18,7 @@
         <table class="table table-hover">
             <thead class="thead-dark">
             <tr>
+                <th>Favorito</th>
                 <th>Titulo</th>
                 <th>Sinopsis</th>
             </tr>
@@ -15,6 +26,7 @@
             <tbody>
             {% for pelicula in peliculas %}
                 <tr>
+                    <td><a href="#"><i data-url="{{ path('star_pelicula', {slug: pelicula.slug}) }}" class="far fa-star fa-2x"></i></a></td>
                     <td><a href="{{ path('detalles_pelicula', {slug: pelicula.slug }) }}">{{ pelicula.titulo }}</a></td>
                     <td>{{ pelicula.descripcion }}</td>
                 </tr>
@@ -23,4 +35,8 @@
         </table>
         <button type="button" class="btn btn-primary btn-lg" onclick="window.location = 'new-pelicula.html';">Nueva</button>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/stars.js') }}"></script>
 {% endblock %}
