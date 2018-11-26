@@ -15,7 +15,7 @@
             <tbody>
             {% for pelicula in peliculas %}
                 <tr>
-                    <td><a href="/pelicula/{{ pelicula.slug }}">{{ pelicula.titulo }}</a></td>
+                    <td><a href="{{ path('detalles_pelicula', {slug: pelicula.slug }) }}">{{ pelicula.titulo }}</a></td>
                     <td>{{ pelicula.descripcion }}</td>
                 </tr>
             {% endfor %}

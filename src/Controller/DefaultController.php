@@ -5,14 +5,15 @@ namespace App\Controller;
 use App\Entity\Pelicula;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends AbstractController
 {
     /**
-     * @Route("/pelicula/{slug}")
+     * @Route("/movie/{slug}", name="detalles_pelicula")
      */
-    public function edit($slug, LoggerInterface $logger)
+    public function edit($slug)
     {
         foreach (Pelicula::getFakePeliculas() as $peli) {
             if ($peli->slug == $slug) {
@@ -20,13 +21,13 @@ class DefaultController extends AbstractController
             }
         }
 
-        $logger->debug('PELICULA ENCONTRADA');
+        //$logger->debug('PELICULA ENCONTRADA');
 
         return $this->render('details.html.twig', ['pelicula' => $pelicula]);
     }
 
     /**
-     * @Route("/")
+     * @Route("/", name="homepage")
      */
     public function index()
     {

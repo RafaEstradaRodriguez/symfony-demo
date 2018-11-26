@@ -6,6 +6,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "sensio/framework-extra-bundle": "^5.2",
+        "symfony/asset": "4.1.*",
         "symfony/console": "4.1.*",
         "symfony/flex": "^1.1",
         "symfony/framework-bundle": "4.1.*",
@@ -15,6 +16,9 @@
     },
     "require-dev": {
         "symfony/dotenv": "4.1.*",
+        "symfony/stopwatch": "^3.3|^4.0",
+        "symfony/twig-bundle": "^3.3|^4.0",
+        "symfony/web-profiler-bundle": "^3.3|^4.0",
         "symfony/web-server-bundle": "4.1.*"
     },
     "config": {
