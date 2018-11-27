@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Ordenación</title>
+        <style>
+            body {
+                font-size: x-large;
+            }
+            .primero {
+                background-color: #738b60;
+            }
+        </style>
+</head>
+<body>
+<ul>
+    {% for usuario in usuarios %}
+
+        {# se podría hacer también con el filtro default #}
+        {% if usuario.nombre is defined %}
+            {% set nombre = usuario.nombre %}
+        {% else %}
+            {% set nombre = 'DESCONOCIDO' %}
+        {% endif %}
+
+            <li {% if loop.index0 == 0 %}class="primero"{% endif %}>
+                {{ loop.index }} - {{ usuario.puntuacion|round(1) }} - {{ nombre }} - {{ usuario.universidad }}
+            </li>
+    {% endfor %}
+</ul>
+</body>
+</html>
