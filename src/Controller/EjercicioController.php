@@ -2,11 +2,21 @@
 
 namespace App\Controller;
 
+use App\Service\EmojiTranslator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 class EjercicioController extends AbstractController
 {
+    /**
+     * @Route("/ejercicios/emojis")
+     */
+    public function ejercicioEmojis(EmojiTranslator $emojiTranslator)
+    {
+        $texto = "Montar en avión es una caca.";
+
+        return $this->render('emojis.html.twig', ['texto' => $emojiTranslator->fullTranslate($texto)] );
+    }
 
     /**
      * @Route("/ejercicios/ordenacion")
