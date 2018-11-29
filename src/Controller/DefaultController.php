@@ -15,9 +15,9 @@ class DefaultController extends AbstractController
     /**
      * @Route("/movie/{slug}", name="detalles_pelicula")
      */
-    public function edit($slug)
+    public function edit($slug, MovieManager $manager)
     {
-        foreach (Pelicula::getFakePeliculas() as $peli) {
+        foreach ($manager->getMovies() as $peli) {
             if ($peli->slug == $slug) {
                 $pelicula = $peli;
             }

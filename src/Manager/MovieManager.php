@@ -39,6 +39,11 @@ class MovieManager
         return $this->pelis;
     }
 
+    public function addMovie(Pelicula $pelicula)
+    {
+        $this->pelis[] = $pelicula;
+    }
+
     public function getMovie($slug): Pelicula
     {
         //dump($this->pelis);
