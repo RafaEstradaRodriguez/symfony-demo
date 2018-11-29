@@ -2,21 +2,36 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+
 class Pelicula
 {
+    /**
+     * @Assert\NotBlank(message="El titulo es obligatorio")
+     */
     public $titulo;
+    /**
+     * @Assert\Length(max="500", maxMessage="Has superado la longitud máxima permitida")
+     */
     public $descripcion;
     public $slug;
+    /**
+     * @Assert\Url(message="La url introducida no es válida")
+     */
     public $imageUrl;
-    public $visitas;
+    public $visitas = 0;
 
-    public function __construct(string $titulo, string $slug, string $imageUrl, string $descripcion, $visitas)
+    public static function withValues(string $titulo, string $slug, string $imageUrl, string $descripcion, $visitas)
     {
-        $this->titulo = $titulo;
-        $this->descripcion = $descripcion;
-        $this->slug = $slug;
-        $this->imageUrl = $imageUrl;
-        $this->visitas = $visitas;
+        $pelicula = new self();
+        $pelicula->titulo = $titulo;
+        $pelicula->descripcion = $descripcion;
+        $pelicula->slug = $slug;
+        $pelicula->imageUrl = $imageUrl;
+        $pelicula->visitas = $visitas;
+
+        return $pelicula;
     }
 
     public function incVisitas()
@@ -74,5 +89,16 @@ class Pelicula
             $this->descripcion,
             $this->visitas
         ];
+    }
+
+    /**
+     * @Assert\Callback()
+     */
+    public function validateSlug(ExecutionContextInterface $context, $payload) {
+        if (stripos($this->slug, ' ') !== false) {
+            $context->buildViolation('No puede contener espacios')
+                ->atPath('slug')
+                ->addViolation();
+        }
     }
 }

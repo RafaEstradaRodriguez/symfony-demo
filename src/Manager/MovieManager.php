@@ -27,7 +27,7 @@ class MovieManager
         $pelis = [];
 
         while ($peli = fgetcsv($file, 5000, '#')){
-            $pelis[] = new Pelicula($peli[0], $peli[1], $peli[2], $peli[3], $peli[4]);
+            $pelis[] = Pelicula::withValues($peli[0], $peli[1], $peli[2], $peli[3], $peli[4]);
         }
 
         $this->pelis = $pelis;

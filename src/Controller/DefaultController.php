@@ -3,10 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Pelicula;
+use App\Form\PeliculaFormType;
 use App\Manager\MovieManager;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -15,7 +17,7 @@ class DefaultController extends AbstractController
     /**
      * @Route("/movie/{slug}", name="detalles_pelicula")
      */
-    public function edit($slug, MovieManager $manager)
+    public function details($slug, MovieManager $manager)
     {
         foreach ($manager->getMovies() as $peli) {
             if ($peli->slug == $slug) {
@@ -41,6 +43,27 @@ class DefaultController extends AbstractController
                 'peliculas' => $movies
             ]
         );
+    }
+
+    /**
+     * @Route("/article-new", name="new_movie")
+     */
+    public function new(Request $request, MovieManager $manager)
+    {
+        $form = $this->createForm(PeliculaFormType::class);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $pelicula = $form->getData();
+            $manager->addMovie($pelicula);
+            $manager->saveMovies();
+            $this->addFlash('success', 'Pelicula creada correctamente!');
+            return $this->redirectToRoute('homepage');
+        }
+
+
+        return $this->render('new-movie.html.twig', ['movieForm' => $form->createView()]);
     }
 
     /**
