@@ -7,6 +7,15 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class EjercicioController extends AbstractController
 {
+    /**
+     * @Route("/ejercicios/emojis")
+     */
+    public function ejercicioEmojis()
+    {
+        $texto = "Montar en avión es una caca, excepto cuando hace sol.";
+
+        return $this->render('emojis.html.twig', ['texto' => $texto]);
+    }
 
     /**
      * @Route("/ejercicios/ordenacion")
