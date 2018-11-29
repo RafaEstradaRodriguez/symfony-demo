@@ -8,13 +8,50 @@ class Pelicula
     public $descripcion;
     public $slug;
     public $imageUrl;
+    public $visitas;
 
-    public function __construct(string $titulo, string $slug, string $imageUrl, string $descripcion)
+    public function __construct(string $titulo, string $slug, string $imageUrl, string $descripcion, $visitas)
     {
         $this->titulo = $titulo;
         $this->descripcion = $descripcion;
         $this->slug = $slug;
         $this->imageUrl = $imageUrl;
+        $this->visitas = $visitas;
+    }
+
+    public function incVisitas()
+    {
+        $this->visitas ++;
+    }
+
+    public function decVisitas()
+    {
+        $this->visitas --;
+    }
+
+    public function getVisitas()
+    {
+        return $this->visitas;
+    }
+
+    public function getTitulo()
+    {
+        return $this->titulo;
+    }
+
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    public function getImageUrl()
+    {
+        return $this->imageUrl;
+    }
+
+    public function getDescripcion()
+    {
+        return $this->descripcion;
     }
 
     public static function getFakePeliculas()
@@ -25,6 +62,17 @@ class Pelicula
             new Pelicula('Los Vengadores', 'los-vengadores', 'https://is2-ssl.mzstatic.com/image/thumb/Video118/v4/04/6a/b4/046ab45e-6099-3e1a-ccef-7b3f8b07f057/contsched.sumsaanu.lsr/268x0w.jpg', 'Cuando el hermano de Thor, Loki, logra acceder al poder ilimitado del Cubo Cósmico, Nick Fury, director de la agencia para mantener la paz internacional, inicia el reclutamiento de unos superhéroes para vencer una amenaza sin precedente contra la Tierra.'),
             new Pelicula('El Gran lebowski', 'el-gran-lebowski', 'https://mlstaticquic-a.akamaihd.net/S_515611-MLU20594068225_022016-O.jpg', 'Un desempleado es confundido por unos matones con el millonario Jeff Lebowski, quien se llama igual que él y a cuya esposa han secuestrado. Cuando acude a casa del millonario para quejarse, éste decide contratarlo para rescatar a su esposa a cambio de una recompensa.'),
             new Pelicula('Interstellar', 'interstellar', 'https://musicimage.xboxlive.com/catalog/video.movie.8D6KGX014R0F/image?locale=en-us&mode=crop&purposes=BoxArt&q=90&h=300&w=200&format=jpg', 'Un grupo de exploradores hacen uso de un orificio recién descubierto para superar las limitaciones de los viajes espaciales humanos y conquistar las vastas distancias relacionadas con los viajes interestelares.')
+        ];
+    }
+
+    public function toArray()
+    {
+        return [
+            $this->titulo,
+            $this->slug,
+            $this->imageUrl,
+            $this->descripcion,
+            $this->visitas
         ];
     }
 }

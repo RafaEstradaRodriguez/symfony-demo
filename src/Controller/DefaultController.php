@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Pelicula;
+use App\Manager\MovieManager;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -30,12 +31,14 @@ class DefaultController extends AbstractController
     /**
      * @Route("/", name="homepage")
      */
-    public function index()
+    public function index(MovieManager $manager)
     {
+
+        $movies = $manager->getMovies();
         return $this->render(
             'list.html.twig',
             [
-                'peliculas' => Pelicula::getFakePeliculas()
+                'peliculas' => $movies
             ]
         );
     }
@@ -43,7 +46,34 @@ class DefaultController extends AbstractController
     /**
      * @Route("/star/{slug}", name="star_pelicula")
      */
-    public function starMovie($slug) {
-        return new JsonResponse(['stars' => random_int(0,100)]);
+    public function starMovie($slug, MovieManager $manager) {
+
+        $peli = $manager->getMovie($slug);
+
+        if ($peli){
+            $peli->incVisitas();
+            $manager->saveMovies();
+            $stars = $peli->getVisitas();
+        } else {
+            $stars = random_int(0,100);
+        }
+        return new JsonResponse(['stars' => $stars]);
+    }
+
+    /**
+     * @Route("/unstar/{slug}", name="unstar_pelicula")
+     */
+    public function unstarMovie($slug, MovieManager $manager) {
+
+        $peli = $manager->getMovie($slug);
+
+        if ($peli){
+            $peli->decVisitas();
+            $manager->saveMovies();
+            $stars = $peli->getVisitas();
+        } else {
+            $stars = random_int(0,100);
+        }
+        return new JsonResponse(['stars' => $stars]);
     }
 }
