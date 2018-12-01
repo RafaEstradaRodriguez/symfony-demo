@@ -21,12 +21,18 @@ class CutreFlixExtension extends AbstractExtension
     public function getFilters()
     {
         return [
-            new TwigFilter('emoji', [$this, 'emojiFilter'])
+            new TwigFilter('emoji', [$this, 'emojiFilter']),
+            new TwigFilter('emojiator', [$this, 'emojiator'])
         ];
     }
 
     public function emojiFilter(string $texto)
     {
         return $this->emojiTranslator->fullTranslate($texto);
+    }
+
+    public function emojiator($text)
+    {
+        return 'foo';
     }
 }
