@@ -30,6 +30,7 @@
                 <th>Favorito</th>
                 <th>Titulo</th>
                 <th>Sinopsis</th>
+                <th>&nbsp;</th>
             </tr>
             </thead>
             <tbody>
@@ -38,6 +39,7 @@
                     <td><a href="#"><i data-url="{{ path('star_pelicula', {slug: pelicula.slug}) }}" class="far fa-star fa-2x"></i></a></td>
                     <td><a href="{{ path('detalles_pelicula', {slug: pelicula.slug }) }}">{{ pelicula.titulo }}</a></td>
                     <td>{{ pelicula.descripcion }}</td>
+                    <td><a href="{{ path('edit_movie', {slug: pelicula.slug }) }}"><i class="fas fa-pencil-alt"></i></a></td>
                 </tr>
             {% endfor %}
             </tbody>

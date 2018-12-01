@@ -65,4 +65,15 @@ class MovieManager
         }
         fclose($file);
     }
+
+    public function updateMovie(Pelicula $pelicula)
+    {
+        for($i=0; $i< count($this->pelis); $i++ ) {
+            $peli = $this->pelis[$i];
+            if ($peli->getSlug() == $pelicula->getSlug()){
+                $this->pelis[$i] = $pelicula;
+                break;
+            }
+        }
+    }
 }

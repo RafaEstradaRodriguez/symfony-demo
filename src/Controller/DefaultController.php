@@ -46,9 +46,9 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/article-new", name="new_movie")
+     * @Route("/movie-new", name="new_movie")
      */
-    public function new(Request $request, MovieManager $manager)
+    public function newPelicula(Request $request, MovieManager $manager)
     {
         $form = $this->createForm(PeliculaFormType::class);
 
@@ -64,6 +64,29 @@ class DefaultController extends AbstractController
 
 
         return $this->render('new-movie.html.twig', ['movieForm' => $form->createView()]);
+    }
+
+    /**
+     * @Route("/movie-edit/{slug}", name="edit_movie")
+     */
+    public function editPelicula(Request $request, $slug, MovieManager $manager)
+    {
+        $pelicula = $manager->getMovie($slug);
+
+        $form = $this->createForm(PeliculaFormType::class, $pelicula);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager->updateMovie($pelicula);
+            $manager->saveMovies();
+            $this->addFlash('success', 'Pelicula actualizada correctamente!');
+            return $this->redirectToRoute('edit_movie', ['slug' => $pelicula->getSlug()]);
+        }
+
+
+        return $this->render('edit-movie.html.twig', ['movieForm' => $form->createView()]);
+
     }
 
     /**
