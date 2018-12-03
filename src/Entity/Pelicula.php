@@ -10,19 +10,25 @@ class Pelicula
     /**
      * @Assert\NotBlank(message="El titulo es obligatorio")
      */
-    public $titulo;
+    private $titulo;
     /**
      * @Assert\Length(max="500", maxMessage="Has superado la longitud máxima permitida")
      */
-    public $descripcion;
-    public $slug;
+    private $descripcion;
+    private $slug;
     /**
      * @Assert\Url(message="La url introducida no es válida")
      */
-    public $imageUrl;
-    public $visitas = 0;
+    private $imageUrl;
 
-    public static function withValues(string $titulo, string $slug, string $imageUrl, string $descripcion, $visitas)
+    /**
+     * @var \DateTime
+     */
+    private $fechaEstreno;
+
+    private $visitas = 0;
+
+    public static function withValues(string $titulo, string $slug, string $imageUrl, string $descripcion, $visitas, $fechaEstreno)
     {
         $pelicula = new self();
         $pelicula->titulo = $titulo;
@@ -69,6 +75,22 @@ class Pelicula
         return $this->descripcion;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getFechaEstreno()
+    {
+        return $this->fechaEstreno;
+    }
+
+    /**
+     * @param mixed $fechaEstreno
+     */
+    public function setFechaEstreno($fechaEstreno): void
+    {
+        $this->fechaEstreno = $fechaEstreno;
+    }
+
     public static function getFakePeliculas()
     {
         return [
@@ -87,7 +109,8 @@ class Pelicula
             $this->slug,
             $this->imageUrl,
             $this->descripcion,
-            $this->visitas
+            $this->visitas,
+            $this->fechaEstreno->format('Y-m-d')
         ];
     }
 
