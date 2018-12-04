@@ -27,7 +27,7 @@ class MovieManager
         $pelis = [];
 
         while ($peli = fgetcsv($file, 5000, '#')){
-            $pelis[] = new Pelicula($peli[0], $peli[1], $peli[2], $peli[3], $peli[4]);
+            $pelis[] = Pelicula::withValues($peli[0], $peli[1], $peli[2], $peli[3], $peli[4]);
         }
 
         $this->pelis = $pelis;
@@ -64,5 +64,16 @@ class MovieManager
             fputcsv($file, $peli->toArray(), '#');
         }
         fclose($file);
+    }
+
+    public function updateMovie(Pelicula $pelicula)
+    {
+        for($i=0; $i< count($this->pelis); $i++ ) {
+            $peli = $this->pelis[$i];
+            if ($peli->getSlug() == $pelicula->getSlug()){
+                $this->pelis[$i] = $pelicula;
+                break;
+            }
+        }
     }
 }
