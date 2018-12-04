@@ -5,36 +5,22 @@ namespace App\Controller;
 use App\Entity\Pelicula;
 use App\Form\PeliculaFormType;
 use App\Manager\MovieManager;
-use Psr\Log\LoggerInterface;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends AbstractController
 {
     /**
-     * @Route("/movie/{slug}", name="detalles_pelicula")
-     */
-    public function details($slug, MovieManager $manager)
-    {
-        foreach ($manager->getMovies() as $peli) {
-            if ($peli->getSlug() == $slug) {
-                $pelicula = $peli;
-            }
-        }
-
-        return $this->render('details.html.twig', ['pelicula' => $pelicula]);
-    }
-
-    /**
      * @Route("/", name="homepage")
      */
-    public function index(MovieManager $manager)
+    public function index(EntityManagerInterface $em)
     {
 
-        $movies = $manager->getMovies();
+        $movies = $em->getRepository(Pelicula::class)->findAll();
+
         return $this->render(
             'list.html.twig',
             [
@@ -44,9 +30,9 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/movie-new", name="new_movie")
+     * @Route("/movie/new", name="new_movie")
      */
-    public function newPelicula(Request $request, MovieManager $manager)
+    public function newPelicula(Request $request, EntityManagerInterface $em)
     {
         $form = $this->createForm(PeliculaFormType::class);
 
@@ -54,8 +40,9 @@ class DefaultController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $pelicula = $form->getData();
-            $manager->addMovie($pelicula);
-            $manager->saveMovies();
+            $em->persist($pelicula);
+            $em->flush();
+
             $this->addFlash('success', 'Pelicula creada correctamente!');
             return $this->redirectToRoute('homepage');
         }
@@ -65,19 +52,16 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/movie-edit/{slug}", name="edit_movie")
+     * @Route("/movie/edit/{slug}", name="edit_movie")
      */
-    public function editPelicula(Request $request, $slug, MovieManager $manager)
+    public function editPelicula(Request $request, Pelicula $pelicula, EntityManagerInterface $em)
     {
-        $pelicula = $manager->getMovie($slug);
-
         $form = $this->createForm(PeliculaFormType::class, $pelicula);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $manager->updateMovie($pelicula);
-            $manager->saveMovies();
+            $em->flush();
             $this->addFlash('success', 'Pelicula actualizada correctamente!');
             return $this->redirectToRoute('edit_movie', ['slug' => $pelicula->getSlug()]);
         }
@@ -88,36 +72,36 @@ class DefaultController extends AbstractController
     }
 
     /**
+     * @Route("/movie/{slug}", name="detalles_pelicula")
+     */
+    public function details(Pelicula $pelicula)
+    {
+        return $this->render('details.html.twig', ['pelicula' => $pelicula]);
+    }
+
+    /**
      * @Route("/star/{slug}", name="star_pelicula")
      */
-    public function starMovie($slug, MovieManager $manager) {
+    public function starMovie(Pelicula $pelicula, EntityManagerInterface $em)
+    {
+        $pelicula->incVisitas();
+        $stars = $pelicula->getVisitas();
 
-        $peli = $manager->getMovie($slug);
+        $em->flush();
 
-        if ($peli){
-            $peli->incVisitas();
-            $manager->saveMovies();
-            $stars = $peli->getVisitas();
-        } else {
-            $stars = random_int(0,100);
-        }
         return new JsonResponse(['stars' => $stars]);
     }
 
     /**
      * @Route("/unstar/{slug}", name="unstar_pelicula")
      */
-    public function unstarMovie($slug, MovieManager $manager) {
+    public function unstarMovie(Pelicula $pelicula, EntityManagerInterface $em)
+    {
+        $pelicula->decVisitas();
+        $stars = $pelicula->getVisitas();
 
-        $peli = $manager->getMovie($slug);
+        $em->flush();
 
-        if ($peli){
-            $peli->decVisitas();
-            $manager->saveMovies();
-            $stars = $peli->getVisitas();
-        } else {
-            $stars = random_int(0,100);
-        }
         return new JsonResponse(['stars' => $stars]);
     }
 }

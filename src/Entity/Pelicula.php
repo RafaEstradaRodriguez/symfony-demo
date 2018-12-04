@@ -4,23 +4,46 @@ namespace App\Entity;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * @ORM\Entity(repositoryClass="App\Repository\PeliculaRepository")
+ */
 class Pelicula
 {
     /**
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+
+    /**
      * @Assert\NotBlank(message="El titulo es obligatorio")
+     * @ORM\Column(type="string", length=100)
      */
     private $titulo;
+
     /**
      * @Assert\Length(max="500", maxMessage="Has superado la longitud máxima permitida")
+     * @ORM\Column(type="string", length=500)
      */
     private $descripcion;
+
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
     private $slug;
+
     /**
      * @Assert\Url(message="La url introducida no es válida")
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
     private $imageUrl;
 
+    /**
+     * * @ORM\Column(type="integer")
+     */
     private $visitas = 0;
 
     public static function withValues(string $titulo, string $slug, string $imageUrl, string $descripcion, $visitas)
@@ -33,6 +56,11 @@ class Pelicula
         $pelicula->visitas = $visitas;
 
         return $pelicula;
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
     }
 
     /**
