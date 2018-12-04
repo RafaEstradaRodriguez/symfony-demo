@@ -16,8 +16,6 @@ class PeliculaFormType extends AbstractType
     {
         $builder->add('titulo');
         $builder->add('slug');
-        $builder->add('fechaEstreno',DateType::class, ['widget' => 'single_text']);
-        //$builder->add('fechaEstreno', DateType::class);
         $builder->add('descripcion',
             TextareaType::class,
             [

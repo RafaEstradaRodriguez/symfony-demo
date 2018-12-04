@@ -20,12 +20,10 @@ class DefaultController extends AbstractController
     public function details($slug, MovieManager $manager)
     {
         foreach ($manager->getMovies() as $peli) {
-            if ($peli->slug == $slug) {
+            if ($peli->getSlug() == $slug) {
                 $pelicula = $peli;
             }
         }
-
-        //$logger->debug('PELICULA ENCONTRADA');
 
         return $this->render('details.html.twig', ['pelicula' => $pelicula]);
     }
