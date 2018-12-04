@@ -15,8 +15,11 @@ class Pelicula
      * @Assert\Length(max="500", maxMessage="Has superado la longitud máxima permitida")
      */
     public $descripcion;
+
     public $slug;
+
     /**
+     * @Assert\NotBlank(message="Tienes que introducir una url")
      * @Assert\Url(message="La url introducida no es válida")
      */
     public $imageUrl;
