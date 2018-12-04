@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+<div class="container">
+    <h1>Nueva Pelicula:</h1>
+    {{  include('_form.html.twig', { button_text: 'Nuevo' }) }}
+</div>
+{% endblock %}
