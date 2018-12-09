@@ -2,31 +2,29 @@
 
 namespace App\Form;
 
-
-use App\Entity\Pelicula;
+use App\Entity\Articulo;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class PeliculaFormType extends AbstractType
+class ArticuloFormType extends AbstractType
 {
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('titulo');
+        $builder->add('titulo', null, ['required' => true]);
         $builder->add('descripcion',
             TextareaType::class,
             [
-                'help' => 'Máximo de 500 caracteres'
+                'help' => 'Longitud máxima 500 caracteres',
+                'label' => 'Descripción'
             ]
         );
-        $builder->add('imageUrl');
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(['data_class' => Pelicula::class]);
+        $resolver->setDefaults(['data_class' => Articulo::class]);
     }
-
 }
