@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <style>
+        .fa-star {
+            color: #ffd931;
+        }
+    </style>
+
+{% endblock %}
+{% block title %}UpFlix cutre{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Capitulos:</h1>
+        <table class="table table-hover">
+            <thead class="thead-dark">
+            <tr>
+                <th>Serie</th>
+                <th>Capitulo</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for capitulo in capitulos%}
+                <tr>
+                    <td><a href="#">{{ capitulo.serie.titulo }}</a></td>
+                    <td>{{ capitulo.titulo }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <button type="button" class="btn btn-primary btn-lg" onclick="window.location = '{{ path('new_movie') }}';">Nueva</button>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/stars.js') }}"></script>
+{% endblock %}
