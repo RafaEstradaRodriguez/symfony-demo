@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <style>
+        .fa-star {
+            color: #ffd931;
+        }
+    </style>
+
+{% endblock %}
+{% block title %}UpFlix cutre{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>PERSONAS:</h1>
+        <table class="table table-hover">
+            <thead class="thead-dark">
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Edad</th>
+                <th>Ciudad</th>
+                <th>Género</th>
+                <th>Fecha Registro</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for persona in personas %}
+                <tr>
+                    <td>{{ persona.id }}</td>
+                    <td>{{ persona.nombre }}</td>
+                    <td>{{ persona.edad }}</td>
+                    <td>{{ persona.ciudad }}</td>
+                    <td>{{ persona.genero }}</td>
+                    <td>{{ persona.fechaRegistro | date('d-m-Y') }}</td>
+
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <button type="button" class="btn btn-primary btn-lg" onclick="window.location = '{{ path('new_movie') }}';">Nueva</button>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/stars.js') }}"></script>
+{% endblock %}
