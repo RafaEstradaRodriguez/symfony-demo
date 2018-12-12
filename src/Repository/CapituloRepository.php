@@ -19,13 +19,30 @@ class CapituloRepository extends ServiceEntityRepository
         parent::__construct($registry, Capitulo::class);
     }
 
-    public function findAllWithJoin()
+    public function findAllWithJoin($returnQuery= false)
     {
-        return $this->createQueryBuilder('c')
+        $query = $this->createQueryBuilder('c')
             ->innerJoin('c.serie', 's')
             ->addSelect('s')
-            ->getQuery()
-            ->getResult();
+            ->getQuery();
+
+        if ($returnQuery) {
+            return $query;
+        }
+
+        return $query->getResult();
+    }
+
+    public function findAllCapitulos($returnQuery = false)
+    {
+        $query = $this->createQueryBuilder('c')
+            ->getQuery();
+
+        if ($returnQuery) {
+            return $query;
+        }
+
+        return $query->getResult();
     }
 
     // /**
