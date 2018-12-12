@@ -19,6 +19,15 @@ class CapituloRepository extends ServiceEntityRepository
         parent::__construct($registry, Capitulo::class);
     }
 
+    public function findAllWithJoin()
+    {
+        return $this->createQueryBuilder('c')
+            ->innerJoin('c.serie', 's')
+            ->addSelect('s')
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Capitulo[] Returns an array of Capitulo objects
     //  */

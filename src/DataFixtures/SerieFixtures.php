@@ -20,12 +20,8 @@ class SerieFixtures extends Fixture
             $serie->setDescripcion($faker->text);
             $serie->setFechaDeEstreno($faker->dateTimeBetween('-10 years', '-1 days'));
 
-            $capitulo = new Capitulo();
-            $capitulo->setTitulo($faker->sentence);
-            $capitulo->setValoracion($faker->numberBetween(0,10));
-            $capitulo->setSerie($serie);
+            $this->addReference(Serie::class . $i, $serie);
 
-            $manager->persist($capitulo);
             $manager->persist($serie);
         }
 
