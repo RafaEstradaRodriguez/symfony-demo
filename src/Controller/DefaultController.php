@@ -16,10 +16,16 @@ class DefaultController extends AbstractController
     /**
      * @Route("/", name="homepage")
      */
-    public function index(EntityManagerInterface $em)
+    public function index(EntityManagerInterface $em, Request $request)
     {
+        //if ?join=lo_que_sea
+        if ($request->query->get('join')) {
+            //también podemos inyectar el repositorio directamente
+            $movies = $em->getRepository(Pelicula::class)->findAllWithJoin();
+        } else {
+            $movies = $em->getRepository(Pelicula::class)->findAll();
+        }
 
-        $movies = $em->getRepository(Pelicula::class)->findAll();
 
         return $this->render(
             'list.html.twig',

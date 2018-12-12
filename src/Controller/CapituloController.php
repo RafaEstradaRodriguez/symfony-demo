@@ -18,20 +18,15 @@ class CapituloController extends AbstractController
         //if ?join=lo_que_sea
         if ($request->query->get('join')) {
             $query =  $capituloRepository->findAllWithJoin(true);
-
-            $pagination = $paginator->paginate(
-              $query,
-              $request->query->get('page', 1),
-              10
-            );
         } else {
             $query =  $capituloRepository->findAllCapitulos(true);
-            $pagination = $paginator->paginate(
-                $query,
-                $request->query->get('page', 1),
-                10
-            );
         }
+
+        $pagination = $paginator->paginate(
+            $query,
+            $request->query->get('page', 1),
+            10
+        );
 
         return $this->render('capitulo/index.html.twig', [
             'pagination' => $pagination

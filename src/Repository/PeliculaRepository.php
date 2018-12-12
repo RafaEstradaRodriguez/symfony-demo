@@ -13,4 +13,13 @@ class PeliculaRepository extends ServiceEntityRepository
         parent::__construct($registry, Pelicula::class);
     }
 
+    public function findAllWithJoin()
+    {
+        return $this->createQueryBuilder('p')
+            ->leftJoin('p.tags', 't')
+            ->addSelect('t')
+            ->getQuery()
+            ->getResult();
+    }
+
 }
