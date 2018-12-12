@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Doctrine\ORM\Mapping as ORM;
@@ -11,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Pelicula
 {
+    use TimestampableEntity;
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -32,6 +35,7 @@ class Pelicula
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Gedmo\Slug(fields={"titulo"})
      */
     private $slug;
 

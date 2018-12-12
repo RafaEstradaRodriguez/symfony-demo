@@ -15,7 +15,6 @@ class PeliculaFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('titulo');
-        $builder->add('slug');
         $builder->add('descripcion',
             TextareaType::class,
             [
