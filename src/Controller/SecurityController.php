@@ -29,6 +29,6 @@ class SecurityController extends AbstractController
      */
     public function logout()
     {
-
+        //no hay que añadir nada
     }
 }
