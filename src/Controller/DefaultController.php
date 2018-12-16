@@ -36,7 +36,7 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/movie/new", name="new_movie")
+     * @Route("/admin/movie/new", name="new_movie")
      */
     public function newPelicula(Request $request, EntityManagerInterface $em)
     {
@@ -58,7 +58,7 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/movie/edit/{slug}", name="edit_movie")
+     * @Route("/admin/movie/edit/{slug}", name="edit_movie")
      */
     public function editPelicula(Request $request, Pelicula $pelicula, EntityManagerInterface $em)
     {
