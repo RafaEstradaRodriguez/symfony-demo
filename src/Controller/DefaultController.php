@@ -6,6 +6,7 @@ use App\Entity\Pelicula;
 use App\Form\PeliculaFormType;
 use App\Manager\MovieManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,7 +37,7 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/movie/new", name="new_movie")
+     * @Route("/admin/movie/new", name="new_movie")
      */
     public function newPelicula(Request $request, EntityManagerInterface $em)
     {
@@ -58,7 +59,8 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/movie/edit/{slug}", name="edit_movie")
+     * @Route("/admin/movie/edit/{slug}", name="edit_movie")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function editPelicula(Request $request, Pelicula $pelicula, EntityManagerInterface $em)
     {

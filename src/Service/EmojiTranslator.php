@@ -2,6 +2,8 @@
 
 namespace App\Service;
 
+use Symfony\Component\Security\Core\Security;
+
 /**
  * Podéis copiar y pegar emojis de https://www.emojicopy.com/
  */
@@ -12,6 +14,13 @@ class EmojiTranslator
         'avión' => "✈",
         'sol' => "☀"
     ];
+
+    private $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
 
     public function fullTranslate(string $texto)
     {
