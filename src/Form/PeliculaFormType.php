@@ -5,6 +5,7 @@ namespace App\Form;
 
 use App\Entity\Pelicula;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -14,7 +15,6 @@ class PeliculaFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('titulo');
-        $builder->add('slug');
         $builder->add('descripcion',
             TextareaType::class,
             [

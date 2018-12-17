@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <style>
+        .fa-star {
+            color: #ffd931;
+        }
+    </style>
+
+{% endblock %}
+{% block title %}UpFlix cutre{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>CAPITULOS:</h1>
+        <span>Total: {{ pagination.getTotalItemCount }}</span>
+        <table class="table table-hover">
+            <thead class="thead-dark">
+            <tr>
+                <th>Serie</th>
+                <th>Titulo</th>
+                <th>Valoración</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for capitulo in pagination %}
+                <tr>
+                    <td><a href="{{ path('serie_details', {id: capitulo.serie.id}) }}">{{ capitulo.serie.titulo }}</a></td>
+                    <td>{{ capitulo.titulo }}</td>
+                    <td>{% for i in 1..capitulo.valoracion|number_format %}<i class="fas fa-star"></i>{% endfor %} </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {{ knp_pagination_render(pagination) }}
+    </div>
+{% endblock %}
