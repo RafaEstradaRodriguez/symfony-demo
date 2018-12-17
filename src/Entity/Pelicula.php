@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Doctrine\ORM\Mapping as ORM;
@@ -26,12 +27,14 @@ class Pelicula
     /**
      * @Assert\NotBlank(message="El titulo es obligatorio")
      * @ORM\Column(type="string", length=100)
+     * @Groups("main")
      */
     private $titulo;
 
     /**
      * @Assert\Length(max="500", maxMessage="Has superado la longitud máxima permitida")
      * @ORM\Column(type="string", length=500)
+     * @Groups("main")
      */
     private $descripcion;
 
