@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\ApiToken;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -27,6 +28,12 @@ class UserFixtures extends Fixture
                 $usuario,
                 '123'
             ));
+
+            $apiToken1 = new ApiToken($usuario);
+            $apiToken2 = new ApiToken($usuario);
+
+            $manager->persist($apiToken1);
+            $manager->persist($apiToken2);
 
             $manager->persist($usuario);
         }

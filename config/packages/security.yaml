@@ -20,6 +20,8 @@ security:
             guard:
                 authenticators:
                     - App\Security\LoginFormAuthenticator
+                    - App\Security\ApiTokenAuthenticator
+                entry_point: App\Security\LoginFormAuthenticator
             logout:
                 path: app_logout
 
@@ -41,5 +43,6 @@ security:
         ROLE_ADMIN: [ROLE_ADMIN_COMMENTS, ROLE_ADMIN_PELICULA, ROLE_ALLOWED_TO_SWITCH]
 
     access_control:
+        - { path: ^/api, roles: ROLE_USER }
         #- { path: ^/preferences, roles: IS_AUTHENTICATED_FULLY }
         # - { path: ^/profile, roles: ROLE_USER }
