@@ -40,6 +40,11 @@ class User implements UserInterface
      */
     private $tokens;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $underPC = false;
+
     public function __construct()
     {
         $this->tokens = new ArrayCollection();
@@ -150,6 +155,18 @@ class User implements UserInterface
                 $token->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isUnderPC(): ?bool
+    {
+        return $this->underPC;
+    }
+
+    public function setUnderPC(bool $underPC): self
+    {
+        $this->underPC = $underPC;
 
         return $this;
     }

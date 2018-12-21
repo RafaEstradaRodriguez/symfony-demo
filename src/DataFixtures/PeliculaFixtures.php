@@ -21,6 +21,7 @@ class PeliculaFixtures extends Fixture implements DependentFixtureInterface
             $pelicula->setDescripcion($faker->text);
             $pelicula->setVisitas($faker->numberBetween(0,1000));
             $pelicula->setImageUrl($faker->imageUrl());
+            $pelicula->setClasificacion($faker->randomElement(['TP', '+12', '+16', '+18']));
 
             //obtengo el número total de tags que tendrá la pelicula
             $numTags = $faker->numberBetween(1,5);

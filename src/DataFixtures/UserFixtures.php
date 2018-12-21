@@ -6,6 +6,7 @@ use App\Entity\ApiToken;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
+use Faker\Factory;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Tests\Encoder\PasswordEncoder;
@@ -21,6 +22,7 @@ class UserFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
+        $faker = Factory::create();
         for($i=1; $i<6; $i++) {
             $usuario = new User();
             $usuario->setEmail("usuario$i@upgrade-hub.com");
@@ -28,6 +30,8 @@ class UserFixtures extends Fixture
                 $usuario,
                 '123'
             ));
+
+            $usuario->setUnderPC($faker->boolean);
 
             $apiToken1 = new ApiToken($usuario);
             $apiToken2 = new ApiToken($usuario);

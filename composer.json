@@ -26,6 +26,7 @@
         "fzaninotto/faker": "^1.8",
         "symfony/dotenv": "4.1.*",
         "symfony/maker-bundle": "^1.9",
+        "symfony/phpunit-bridge": "4.1.*",
         "symfony/stopwatch": "^3.3|^4.0",
         "symfony/twig-bundle": "^3.3|^4.0",
         "symfony/web-profiler-bundle": "^3.3|^4.0",

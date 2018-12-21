@@ -61,6 +61,11 @@ class Pelicula
      */
     private $tags;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $clasificacion;
+
     public function __construct()
     {
         $this->tags = new ArrayCollection();
@@ -205,6 +210,18 @@ class Pelicula
             $this->tags->removeElement($tag);
             $tag->removePelicula($this);
         }
+
+        return $this;
+    }
+
+    public function getClasificacion(): ?string
+    {
+        return $this->clasificacion;
+    }
+
+    public function setClasificacion(string $clasificacion): self
+    {
+        $this->clasificacion = $clasificacion;
 
         return $this;
     }
